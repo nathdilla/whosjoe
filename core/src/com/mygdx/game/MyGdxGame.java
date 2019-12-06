@@ -10,16 +10,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MyGdxGame extends ApplicationAdapter {
 	private SpriteBatch batch;
-	private Texture img;
-	private Sprite mySprite;
+	private Texture idle;
+	private Texture walkA;
+	private Texture walkB;
+	public Sprite mySprite;
 	private int X;
 	private int Y;
-	
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("joe.png");
-		mySprite = new Sprite(img, img.getWidth(), img.getHeight());
+		idle = new Texture("joe.png");
+		walkA = new Texture("joeWalkA.png");
+		walkB = new Texture("joeWalkB.png");
+		mySprite = new Sprite(idle, idle.getWidth(), idle.getHeight());
 	}
 
 	@Override
@@ -50,6 +54,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
+		idle.dispose();
 	}
 }
