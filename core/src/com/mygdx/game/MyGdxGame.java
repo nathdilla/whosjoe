@@ -3,12 +3,13 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	private SpriteBatch batch;
 	private Texture idle;
 	private Texture walkA;
@@ -31,6 +32,8 @@ public class MyGdxGame extends ApplicationAdapter {
 		myPlant = new Sprite(plantZero, plantZero.getWidth()/2, plantZero.getHeight()/2);
 
 		plantInventory = new PlantInventory();
+
+		Gdx.input.setInputProcessor(this);
 	}
 
 	@Override
@@ -41,34 +44,12 @@ public class MyGdxGame extends ApplicationAdapter {
 			X--;
 			mySprite.setX(X);
 		}
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-		{
-			X++;
-			mySprite.setX(X);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-		{
 
-			Y--;
-			mySprite.setY(Y);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.UP))
-		{
-			Y++;
-			mySprite.setY(Y);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
-		{
-			float[][] Position = new float[(int) mySprite.getX()][(int) mySprite.getY()];
-			plantZero = new Texture("littlePlant.png");
-			Sprite createPlant = new Sprite(plantZero, plantZero.getWidth()/2, plantZero.getHeight()/2);
-			Plant newPlant = new Plant("Rose", 0, 100, createPlant, plantZero, Position);
-			plantInventory.addPlant(newPlant);
-		}
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(mySprite, X, Y);
+
 		for (int i = 0; i < plantInventory.plants.size(); i++)
 		{
 			batch.draw(plantInventory.plants.get(i).getTexture(),plantInventory.plants.get(i).Position.length, plantInventory.plants.get(i).Position[0].length);
@@ -81,4 +62,80 @@ public class MyGdxGame extends ApplicationAdapter {
 		batch.dispose();
 		idle.dispose();
 	}
+
+    @Override
+    public boolean keyDown(int keycode) {
+	    if (keycode == Input.Keys.LEFT)
+        {
+            X-=10;
+            mySprite.setX(X);
+        }
+        if ((keycode == Input.Keys.RIGHT))
+        {
+            X+=10;
+            mySprite.setX(X);
+        }
+        if ((keycode == Input.Keys.DOWN))
+        {
+
+            Y-=10;
+            mySprite.setY(Y);
+        }
+        if ((keycode == Input.Keys.UP))
+        {
+            Y+=10;
+            mySprite.setY(Y);
+        }
+        if ((keycode == Input.Keys.SPACE))
+        {
+            if (mySprite.getX() > 50 && mySprite.getY() > 100) {
+                float[][] Position = new float[(int) mySprite.getX() - 50][(int) mySprite.getY()-100];
+                plantZero = new Texture("littlePlant.png");
+                Sprite createPlant = new Sprite(plantZero, plantZero.getWidth() / 2, plantZero.getHeight() / 2);
+                Plant newPlant = new Plant("Rose", 0, 100, createPlant, plantZero, Position);
+                plantInventory.addPlant(newPlant);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+	    System.out.println(screenX + "," + screenY );
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
+    }
+
+    public PlantInventory getPlantInventory() {
+        return plantInventory;
+    }
 }
