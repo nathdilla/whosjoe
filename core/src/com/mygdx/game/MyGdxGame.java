@@ -92,6 +92,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
                 float[][] Position = new float[(int) mySprite.getX() - 50][(int) mySprite.getY()-100];
                 plantZero = new Texture("littlePlant.png");
                 Sprite createPlant = new Sprite(plantZero, plantZero.getWidth() / 2, plantZero.getHeight() / 2);
+                createPlant.setPosition(Position.length,Position[0].length);
                 Plant newPlant = new Plant("Rose", 0, 100, createPlant, plantZero, Position);
                 plantInventory.addPlant(newPlant);
             }
@@ -112,6 +113,11 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 	    System.out.println(screenX + "," + screenY );
+	    Sprite object = click(new float[screenX][screenY]);
+//	    if(object != null)
+//        {
+//            object.setAlpha(0);
+//        }
         return false;
     }
 
@@ -137,5 +143,32 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
     public PlantInventory getPlantInventory() {
         return plantInventory;
+    }
+    private Sprite click(float[][] mousePos)
+    {
+        int rangeX = 100;
+        int rangeY = 100;
+        int comparedX;
+        int comparedY;
+        int distance;
+        for (int i = 0; i < plantInventory.plants.size();i++)
+        {
+            comparedX = plantInventory.plants.get(i).Position.length;
+            comparedY = plantInventory.plants.get(i).Position[0].length;
+            System.out.println("checking for plant " + i);
+            System.out.println(plantInventory.plants.get(i).Position.length + " " + plantInventory.plants.get(i).Position[0].length);
+
+              // if(mousePos[0].length - 200 < comparedY && comparedY < mousePos[0].length + 200)
+              // {
+                  // System.out.println("object detected");
+                   // return plantInventory.plants.get(i).sprite;
+              // }
+           distance = Math.abs((int) Math.sqrt(Math.pow(mousePos[0].length - comparedY, 2) + Math.pow(mousePos.length-comparedX,2)));
+           if (distance < 50)
+           {
+               System.out.println("object detected " + distance);
+           }
+        }
+        return null;
     }
 }
