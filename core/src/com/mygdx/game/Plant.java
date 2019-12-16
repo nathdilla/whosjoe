@@ -6,10 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import javafx.geometry.Pos;
 
 import javax.swing.text.Position;
 import java.util.ArrayList;
+
 
 public class Plant
 {
@@ -20,6 +23,7 @@ public class Plant
     public Texture texture;
     public ArrayList<Plant> plants = new ArrayList<Plant>();
     public float[][] Position;
+    private boolean isAgeing;
 
     public Plant(String type, int age, int hydration, Sprite sprite, Texture currentTexture, float[][] Position)
     {
@@ -31,9 +35,15 @@ public class Plant
         this.Position = Position;
         //plants.add();
     }
-    public Texture nextFace(int age)
+    public Texture nextFace()
     {
-        return new Texture("littlePlant");
+        age++;
+        if (age >= 0){
+            this.texture = new Texture((type + (age + 1)) + ".png");
+            isAgeing = false;
+            return texture;
+        }
+        return new Texture("littlePlant.png");
     }
     public Sprite getSprite(Sprite sprite)
     {
@@ -51,5 +61,20 @@ public class Plant
     {
         float[][] Position = new float[x + incrementX][y+ incrementY];
         this.Position = Position;
+    }
+    public void age(int wait){
+        if(isAgeing == false) {
+            isAgeing = true;
+            Timer timer = new Timer();
+            Task task = new Task() {
+                @Override
+                public void run() {
+                    System.out.println("age");
+                    nextFace();
+                    System.out.println("new age " + age);
+                }
+            };
+            timer.scheduleTask(task, wait);
+        }
     }
 }
