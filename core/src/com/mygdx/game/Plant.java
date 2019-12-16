@@ -24,8 +24,9 @@ public class Plant
     public ArrayList<Plant> plants = new ArrayList<Plant>();
     public float[][] Position;
     private boolean isAgeing;
+    private int numberOfPlants;
 
-    public Plant(String type, int age, int hydration, Sprite sprite, Texture currentTexture, float[][] Position)
+    public Plant(String type, int age, int hydration, Sprite sprite, Texture currentTexture, float[][] Position, final WhosJoeMain game)
     {
         this.age = age;
         this.type = type;
@@ -34,6 +35,17 @@ public class Plant
         this.texture = currentTexture;
         this.Position = Position;
         //plants.add();
+
+        numberOfPlants++;
+
+        Timer timer = new Timer();
+        Timer.Task task = new Timer.Task() {
+            @Override
+            public void run() {
+                game.happiness++;
+            }
+        };
+        timer.scheduleTask(task, 0, 30 / numberOfPlants);
     }
     public Texture nextFace()
     {

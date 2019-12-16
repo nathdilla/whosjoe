@@ -27,6 +27,11 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
     private CharSequence alertMessage = "";
     private Texture cursor;
     private boolean isWalkingLeft = true;
+    private CharSequence instructionShop = "Press x to shop.";
+    private CharSequence instructionPlant = "Press space to plant.";
+    private CharSequence instructionWater = "Click on a plant to water it.";
+
+
 
     public Sprite mySprite;
     public Sprite myPlant;
@@ -100,6 +105,11 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
         font.draw(Game.batch, alertMessage, 0, Gdx.graphics.getHeight()/2);
 
         Game.batch.draw(cursor, Gdx.input.getX() - 30, Math.abs(((Gdx.input.getY() * -1) + 490)), 20, 20);
+
+        font.getData().setScale(1);
+        font.draw(Game.batch, instructionPlant, 0, Gdx.graphics.getHeight() - 20);
+        font.draw(Game.batch, instructionWater, 0, Gdx.graphics.getHeight() - 40);
+        font.draw(Game.batch, instructionShop, 0, Gdx.graphics.getHeight() - 60);
 
         if(Game.hasTool == true) {
             Game.batch.draw(hoeDisplay, 400, 10, 30, 30);
@@ -233,7 +243,7 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
                         Sprite createPlant = new Sprite(plantZero, plantZero.getWidth() / 2, plantZero.getHeight() / 2);
                         createPlant.setPosition(Position.length, Position[0].length);
                         System.out.println("New Plant Created at: " + Position.length + " " + Position[0].length);
-                        Plant newPlant = new Plant(Game.seedType, 0, 100, createPlant, plantZero, Position);
+                        Plant newPlant = new Plant(Game.seedType, 0, 100, createPlant, plantZero, Position, Game);
                         plantInventory.addPlant(newPlant);
                     }
                     else

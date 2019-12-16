@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.game.MainGameScreen;
 
 //Let the class extend from game
@@ -28,6 +29,23 @@ public class WhosJoeMain extends Game {
             gameScreen = new MainGameScreen(this);
             shopScreen = new ShopScreen(this);
             this.setScreen(gameScreen);
+                Timer timer = new Timer();
+                Timer.Task task = new Timer.Task() {
+                    @Override
+                    public void run() {
+                         balance++;
+                    }
+                };
+                timer.scheduleTask(task, 5, 60);
+            final Timer happinessDeduct = new Timer();
+            Timer.Task taskDeduct = new Timer.Task() {
+                @Override
+                public void run() {
+                    if (balance < 0)
+                    happiness = happiness + (1 * happiness);
+                }
+            };
+            happinessDeduct.scheduleTask(taskDeduct, 0, Math.abs(happiness));
         }
         public void openShop()
         {

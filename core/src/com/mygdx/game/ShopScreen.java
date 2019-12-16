@@ -31,6 +31,8 @@ public class ShopScreen implements Screen {
     private CharSequence happinessDisplay = "HAPPINESS: ";
     private CharSequence shopDisplay = "";
 
+    private CharSequence instructionShop = "Press c to close shop.";
+
     private static final int BUTTON_WIDTH = Gdx.graphics.getWidth() /7;
     private static final int BUTTON_HEIGHT = Gdx.graphics.getHeight() /2;
     private static final int BUTTON_X = Gdx.graphics.getHeight();
@@ -81,6 +83,8 @@ public class ShopScreen implements Screen {
         font.draw(game.batch, happinessDisplay + "" + game.happiness, 200, 30);
         font.getData().setScale(4);
         font.draw(game.batch, shopDisplay, 0, Gdx.graphics.getHeight()/2);
+        font.getData().setScale(1);
+        font.draw(game.batch, instructionShop, 0, Gdx.graphics.getHeight() - 60);
 
 
         if(Gdx.input.isKeyPressed(Input.Keys.C))
@@ -94,11 +98,14 @@ public class ShopScreen implements Screen {
             //System.out.println("HOE");
             shopDisplay = "Buy a new hoe.";
             if(Gdx.input.isTouched()){
+
                 if (game.hasTool == false)
                 {
+                    System.out.println("now true");
                     game.hasTool = true;
                     game.balance--;
                 }
+
             }
         }
         if(Gdx.input.getX() < xWater + BUTTON_WIDTH && Gdx.input.getX() > xWater && BUTTON_Y - Gdx.input.getY() <  BUTTON_HEIGHT * 2 && BUTTON_Y - Gdx.input.getY() > BUTTON_HEIGHT)
