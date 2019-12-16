@@ -37,13 +37,13 @@ public class Plant
     }
     public Texture nextFace()
     {
-        age++;
-        if (age >= 0){
+        if (age < 2) {
+            age++;
             this.texture = new Texture((type + (age + 1)) + ".png");
             isAgeing = false;
-            return texture;
         }
-        return new Texture("littlePlant.png");
+            return texture;
+
     }
     public Sprite getSprite(Sprite sprite)
     {

@@ -10,16 +10,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 
 
-public class PlantInventory
+public class PlantInventory implements changePlants
 {
     public ArrayList<Plant> plants = new ArrayList<Plant>();
 
-    public void addPlant(Plant newPlant)
-    {
+
+    @Override
+    public void addPlant(Plant newPlant) {
         plants.add(newPlant);
     }
-    public void removePlant(Plant thisPlant)
-    {
+
+    @Override
+    public void removePlant(Plant thisPlant) {
         plants.remove(thisPlant);
     }
 }
