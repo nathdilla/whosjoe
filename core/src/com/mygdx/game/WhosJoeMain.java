@@ -1,13 +1,15 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import com.badlogic.gdx.utils.Timer;
-import com.mygdx.game.MainGameScreen;
 
 //Let the class extend from game
-public class WhosJoeMain extends Game {
+public class WhosJoeMain extends Game
+{
         //Delete everything in it and leave a create() with a single line
     public SpriteBatch batch;
     //public String tool = "hoe";
@@ -22,42 +24,79 @@ public class WhosJoeMain extends Game {
 
     private MainGameScreen gameScreen;
     private ShopScreen shopScreen;
+    private TitleScreen titleScreen;
+    private GameOverScreen endScreen;
+    public Sound sound;
         @Override
         public void create()
         {
             batch = new SpriteBatch();
+            //sound = Gdx.audio.newSound(FileHandle.tempFile("walking.wav"));
+            //long id = sound.play();
+            titleScreen = new TitleScreen(this);
+            this.setScreen(titleScreen);
+
+        }//end method create
+
+        public void startGame()
+        {
             gameScreen = new MainGameScreen(this);
             shopScreen = new ShopScreen(this);
+
             this.setScreen(gameScreen);
-                Timer timer = new Timer();
-                Timer.Task task = new Timer.Task() {
-                    @Override
-                    public void run() {
-                         balance++;
-                    }
-                };
-                timer.scheduleTask(task, 5, 60);
-            final Timer happinessDeduct = new Timer();
-            Timer.Task taskDeduct = new Timer.Task() {
+            Timer timer = new Timer();
+            Timer.Task task = new Timer.Task() {
                 @Override
                 public void run() {
-                    if (balance < 0)
-                    happiness = happiness + (1 * happiness);
+                    balance++;
                 }
             };
-            happinessDeduct.scheduleTask(taskDeduct, 0, Math.abs(happiness));
-        }
+            timer.scheduleTask(task, 5, 60);
+            final Timer happinessDeduct = new Timer();
+            Timer.Task taskDeduct = new Timer.Task()
+            {
+                @Override
+                public void run()
+                {
+                    if (balance < 0)
+                    {
+                        happiness--;
+                        if (happiness < -10)
+                        {
+                            endGame();
+                        }//end if check happines
+                    }//end if check balance
+                }//end method run
+            };//end initialization
+            happinessDeduct.scheduleTask(taskDeduct, 0, 1 + Math.abs(happiness));
+        }//end method start game
+
+        public void endGame()
+        {
+            endScreen = new GameOverScreen(this);
+            this.setScreen(endScreen);
+
+            Timer timer = new Timer();
+            Timer.Task task = new Timer.Task() {
+                @Override
+                public void run() {
+                    Gdx.app.exit();
+                }
+            };
+            timer.scheduleTask(task,5);
+        }//end method endGame
+
         public void openShop()
         {
             this.setScreen(shopScreen);
-        }
+        }//end method openShop
         public void closeShop()
         {
             this.setScreen(gameScreen);
-        }
+        }//end method closeShop
 @Override
     public void render()
     {
         super.render();
-    }
-}
+    }//end method render
+}//end class WhosJoeMain

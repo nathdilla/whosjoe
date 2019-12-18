@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
-public interface changePlants {
+public interface changePlants
+{
     void addPlant(Plant newPlant);
     void removePlant(Plant thisPlant);
-}
+}//end interface

@@ -46,47 +46,53 @@ public class Plant
             }
         };
         timer.scheduleTask(task, 0, 30 / numberOfPlants);
-    }
+    }//end constructor method Plant
     public Texture nextFace()
     {
-        if (age < 2) {
+        if (age < 2)
+        {
             age++;
             this.texture = new Texture((type + (age + 1)) + ".png");
             isAgeing = false;
-        }
+        }//end if age is less than 2
             return texture;
 
-    }
+    }//end method nextFace
     public Sprite getSprite(Sprite sprite)
     {
         return sprite;
-    }
+    }//end method getSprite
     public float[][] getPosition()
     {
         return Position;
-    }
+    }//end method getPosition
 
-    public Texture getTexture() {
+    public Texture getTexture()
+    {
         return texture;
-    }
+    }//end method getTexture
     public void updatePosition(int x,int y, int incrementX, int incrementY)
     {
         float[][] Position = new float[x + incrementX][y+ incrementY];
         this.Position = Position;
-    }
-    public void age(int wait){
-        if(isAgeing == false) {
+    }//end method updatePosition
+    public void age(int wait)
+    {
+        if(isAgeing == false)
+        {
             isAgeing = true;
             Timer timer = new Timer();
-            Task task = new Task() {
+            Task task = new Task()
+            {
                 @Override
-                public void run() {
+                public void run()
+                {
                     System.out.println("age");
                     nextFace();
                     System.out.println("new age " + age);
-                }
-            };
+                }//end method run
+            };//end task initialization
             timer.scheduleTask(task, wait);
-        }
-    }
-}
+        }//end if isAgeing is false
+    }//end method age
+}//end class Plant

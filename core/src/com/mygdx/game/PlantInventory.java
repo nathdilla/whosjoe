@@ -16,12 +16,14 @@ public class PlantInventory implements changePlants
 
 
     @Override
-    public void addPlant(Plant newPlant) {
+    public void addPlant(Plant newPlant)
+    {
         plants.add(newPlant);
-    }
+    }//end method addPlant
 
     @Override
-    public void removePlant(Plant thisPlant) {
+    public void removePlant(Plant thisPlant)
+    {
         plants.remove(thisPlant);
-    }
-}
+    }//end method removePlant
+}//end class PlantInventory

@@ -6,13 +6,12 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Timer;
 
-public class MainGameScreen extends ApplicationAdapter implements Screen, InputProcessor {
+public class MainGameScreen extends ApplicationAdapter implements Screen, InputProcessor
+{
 
     WhosJoeMain Game;
-    //private SpriteBatch batch;
     private Texture idle;
     private Texture walkA = new Texture("JoeWalkA.png");
     private Texture walkB = new Texture("JoeWalkB.png");
@@ -43,9 +42,8 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
     public String seedType;
     public int balance;
     public int happiness;
-    private int X;
-    private int Y;
-    private int alpha = 0;
+    private int X = Gdx.graphics.getWidth()/2;
+    private int Y = Gdx.graphics.getHeight()/2;
 
 
 
@@ -54,21 +52,17 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
     public MainGameScreen(WhosJoeMain Game)
     {
         this.Game = Game;
-        //this.tool = Game.tool;
         this.hasWater = Game.hasWater;
         this.hasSeed = Game.hasSeed;
         this.seedType = Game.seedType;
         this.balance = Game.balance;
         this.happiness = Game.happiness;
         this.plantInventory = Game.plantInventory;
-    }
+    }//end method constructor MainGameScreen
     @Override
-    public void show() {
+    public void show()
+    {
         idle = new Texture("Joe.png");
-               // batch = new SpriteBatch();
-        //idle = new Texture("joe.png");
-        //walkA = new Texture("joeWalkA.png");
-        //walkB = new Texture("joeWalkB.png");
         plantZero = new Texture("littlePlant.png");
         mySprite = new Sprite(idle, idle.getWidth(), idle.getHeight());
         myPlant = new Sprite(plantZero, plantZero.getWidth()/2, plantZero.getHeight()/2);
@@ -82,16 +76,14 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
         font = new BitmapFont();
         font.setColor(Color.BLACK);
 
-        //plantInventory = new PlantInventory();
-
         Gdx.input.setInputProcessor(this);
 
         mySprite.setPosition(0,0);
-    }
+    }//end method show
 
     @Override
-    public void render(float delta) {
-        //this.render();
+    public void render(float delta)
+    {
         Gdx.gl.glClearColor(1,1,1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Game.batch.begin();
@@ -111,55 +103,64 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
         font.draw(Game.batch, instructionWater, 0, Gdx.graphics.getHeight() - 40);
         font.draw(Game.batch, instructionShop, 0, Gdx.graphics.getHeight() - 60);
 
-        if(Game.hasTool == true) {
-            Game.batch.draw(hoeDisplay, 400, 10, 30, 30);
-        }
-        if(Game.hasWater == true) {
-            Game.batch.draw(waterDisplay, 450, 10, 30, 30);
-        }
-        if(Game.hasSeed == true) {
-            seedDisplay = new Texture("seed" + Game.seedType.substring(0,1).toUpperCase() + Game.seedType.substring(1) + ".png");
-            Game.batch.draw(seedDisplay, 505, 10, 30, 30);
-        }
-
         for (int i = 0; i < plantInventory.plants.size(); i++)
         {
             Game.batch.draw(plantInventory.plants.get(i).getTexture(),plantInventory.plants.get(i).Position.length, plantInventory.plants.get(i).Position[0].length);
-        }
+        }//end for loop render all created plants
+
+        if(Game.hasTool == true)
+        {
+            Game.batch.draw(hoeDisplay, 400, 10, 30, 30);
+        }//end if hasTool
+        if(Game.hasWater == true)
+        {
+            Game.batch.draw(waterDisplay, 450, 10, 30, 30);
+        }//end if hasWater
+        if(Game.hasSeed == true)
+        {
+            seedDisplay = new Texture("seed" + Game.seedType.substring(0,1).toUpperCase() + Game.seedType.substring(1) + ".png");
+            Game.batch.draw(seedDisplay, 505, 10, 30, 30);
+        }//end if hasSeed
         Game.batch.end();
-    }
+    }//end method render
 
     @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
+    public void resize(int width, int height)
+    {
+    //nothing to resize
+    }//end method resize
 
     @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-
-
+    public void pause()
+    {
+    //nothing to pause
+    }//end method pause
 
     @Override
-    public void dispose () {
+    public void resume()
+    {
+    //nothing to resume
+    }//end method resume
+
+    @Override
+    public void hide()
+    {
+    //nothing to hide
+    }//end method hide
+
+
+
+
+    @Override
+    public void dispose ()
+    {
         Game.batch.dispose();
         idle.dispose();
-    }
+    }//end method dispose
 
     @Override
-    public boolean keyDown(int keycode) {
+    public boolean keyDown(int keycode)
+    {
         System.out.println("Char Position: " + X +" " + Y);
         if (keycode == Input.Keys.LEFT)
         {
@@ -169,13 +170,13 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
             {
                 isWalkingLeft = false;
                 mySprite.setTexture(walkA);
-            }
+            }//end if isWalkingLeft
             else
             {
                 isWalkingLeft = true;
                 mySprite.setTexture(walkB);
-            }
-        }
+            }//end else of isWalkingLeft
+        }//end if keycode is LEFT
         if ((keycode == Input.Keys.RIGHT))
         {
             X+=10;
@@ -184,13 +185,13 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
             {
                 isWalkingLeft = false;
                 mySprite.setTexture(walkA);
-            }
+            }//end if isWalkingLeft
             else
             {
                 isWalkingLeft = true;
                 mySprite.setTexture(walkB);
-            }
-        }
+            }//end else of isWalkingLeft
+        }//end if keycode is RIGHT
         if ((keycode == Input.Keys.DOWN))
         {
 
@@ -200,13 +201,13 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
             {
                 isWalkingLeft = false;
                 mySprite.setTexture(walkA);
-            }
+            }//end if isWalkingLeft
             else
             {
                 isWalkingLeft = true;
                 mySprite.setTexture(walkB);
-            }
-        }
+            }//end else of isWalkingLeft
+        }//end if keycode is DOWN
         if ((keycode == Input.Keys.UP))
         {
             Y+=10;
@@ -215,27 +216,31 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
             {
                 isWalkingLeft = false;
                 mySprite.setTexture(walkA);
-            }
+            }//end if isWalkingLeft
             else
             {
                 isWalkingLeft = true;
                 mySprite.setTexture(walkB);
-            }
-        }
+            }//end else of isWalkingLeft
+        }//end if keycode is UP
         if ((keycode == Input.Keys.SPACE))
         {
             mySprite.setTexture(jump);
             Timer JumpTimer = new Timer();
-            Timer.Task JumpTask = new Timer.Task() {
+            Timer.Task JumpTask = new Timer.Task()
+            {
                 @Override
-                public void run() {
+                public void run()
+                {
+
                     mySprite.setTexture(idle);
-                }
-            };
+                }//end method run
+            };//end task initialization
             JumpTimer.scheduleTask(JumpTask, 1);
-            if (mySprite.getX() > 50 && mySprite.getY() > 100) {
-                if (plantInventory.plants.size() < 10) {
-                    if(Game.hasSeed == true && Game.hasTool == true) {
+            if (mySprite.getX() > 50 && mySprite.getY() > 100)
+            {
+                    if(Game.hasSeed == true && Game.hasTool == true)
+                    {
                         Game.hasSeed = false;
                         Game.hasTool = false;
                         float[][] Position = new float[(int) mySprite.getX()][(int) mySprite.getY() - 100];
@@ -245,7 +250,7 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
                         System.out.println("New Plant Created at: " + Position.length + " " + Position[0].length);
                         Plant newPlant = new Plant(Game.seedType, 0, 100, createPlant, plantZero, Position, Game);
                         plantInventory.addPlant(newPlant);
-                    }
+                    }//end if hasSeed is true and hasTool is true
                     else
                     {
                         alertMessage = "You ran out of seed and hoe.";
@@ -257,9 +262,8 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
                             }
                         };
                         timer.scheduleTask(task, 2);
-                    }
-                }
-            }
+                    }//end else
+            }//end if player is in world
             else
             {
                 alertMessage = "You can't plant here.";
@@ -271,95 +275,92 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
                     }
                 };
                 timer.scheduleTask(task, 2);
-            }
+            }//end else of player is in the world
         }
         if ((keycode == Input.Keys.Z))
         {
             tool = "water";
-        }
+        }//end if keycode is Z
         if ((keycode == Input.Keys.X))
         {
             Game.openShop();
-        }
+        }//end if keycode is X
         return false;
-    }
+    }//end keyDown method
 
-    public boolean getHasSeed()
+    @Override
+    public boolean keyUp(int keycode)
     {
-        return hasSeed;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
         return false;
-    }
+    }//end method keyUp
 
     @Override
-    public boolean keyTyped(char character) {
+    public boolean keyTyped(char character)
+    {
         return false;
-    }
+    }//end method keyTyped
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button)
+    {
         System.out.println("Mouse: " + screenX + "," + Math.abs(((screenY * -1) + 460)));
         Sprite object = click(new float[screenX][Math.abs(((screenY * -1) + 460))]);
         return false;
-    }
+    }//end method touchDown
 
     @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+    public boolean touchUp(int screenX, int screenY, int pointer, int button)
+    {
         return false;
-    }
+    }//end method touchUp
 
     @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
+    public boolean touchDragged(int screenX, int screenY, int pointer)
+    {
         return false;
-    }
+    }//end method touchDragged
 
     @Override
-    public boolean mouseMoved(int screenX, int screenY) {
+    public boolean mouseMoved(int screenX, int screenY)
+    {
         return false;
-    }
+    }//end method mouseMoved
 
     @Override
-    public boolean scrolled(int amount) {
+    public boolean scrolled(int amount)
+    {
         return false;
-    }
+    }//end method scrolled
 
-    public PlantInventory getPlantInventory() {
-        return plantInventory;
-    }
     private Sprite click(float[][] mousePos)
     {
         int rangeX = 100;
         int rangeY = 100;
-        if (Game.hasWater == true) {
+        if (Game.hasWater == true)
+        {
             int comparedX;
             int comparedY;
             int distance;
-            for (Plant plant : plantInventory.plants) {
+            for (Plant plant : plantInventory.plants)
+            {
                 comparedX = (int) (plant.Position.length + 40);
                 comparedY = (int) (plant.Position[0].length + 30);
                 //System.out.println("checking for plant " + i);
                 System.out.println("Checking..: " + comparedX + " " + comparedY);
 
-                // if(mousePos[0].length - 200 < comparedY && comparedY < mousePos[0].length + 200)
-                // {
-                // System.out.println("object detected");
-                // return plantInventory.plants.get(i).sprite;
-                // }
                 distance = ((int) Math.sqrt(Math.pow(mousePos[0].length - comparedY, 2) + Math.pow(mousePos.length - comparedX, 2)));
                 System.out.println("distance: " + distance);
-                if (distance < 50) {
+                if (distance < 50)
+                {
                     System.out.println("object detected " + distance);
 
                         Game.hasWater = false;
                         plant.age(5);
 
                     return plant.sprite;
-                }
-            }
-        }
+                }//end if distance is less than 50
+            }//end for each loop of plantInventory plants Array
+        }//end if hasWater is true
         else
         {
             alertMessage = "You ran out of water.";
@@ -371,7 +372,7 @@ public class MainGameScreen extends ApplicationAdapter implements Screen, InputP
                 }
             };
             timer.scheduleTask(task, 2);
-        }
+        }//end else of hasWater
         return null;
-    }
-}
+    }//end method click
+}//end class MainGameScreen

@@ -10,7 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Gdx2DPixmap;
 
-public class ShopScreen implements Screen {
+public class ShopScreen implements Screen
+{
 
     //private static final int
 
@@ -51,17 +52,19 @@ public class ShopScreen implements Screen {
 //        shopDisplayRose = new Texture("shopWord3.png");
 //        shopDisplayDaisy = new Texture("shopWord4.png");
 //        shopDisplayTulip = new Texture("shopWord5.png");
-    }
+    }//end constructor method ShopScreen
 
     @Override
-    public void show() {
+    public void show()
+    {
         font = new BitmapFont();
         font.setColor(Color.BLACK);
 
-    }
+    }//end method show
 
     @Override
-    public void render(float delta) {
+    public void render(float delta)
+    {
         Gdx.gl.glClearColor(1,1,1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
@@ -90,7 +93,7 @@ public class ShopScreen implements Screen {
         if(Gdx.input.isKeyPressed(Input.Keys.C))
         {
             game.closeShop();
-        }
+        }//end if keyPressed is C
 
         if(Gdx.input.getX() < xHoe + BUTTON_WIDTH && Gdx.input.getX() > xHoe && BUTTON_Y - Gdx.input.getY() <  BUTTON_HEIGHT * 2 && BUTTON_Y - Gdx.input.getY() > BUTTON_HEIGHT)
         //if(Gdx.input.getX() < Gdx.graphics.getWidth() - BUTTON_WIDTH && Gdx.input.getX() > Gdx.graphics.getWidth() - BUTTON_WIDTH)
@@ -104,91 +107,99 @@ public class ShopScreen implements Screen {
                     System.out.println("now true");
                     game.hasTool = true;
                     game.balance--;
-                }
+                }//end if hasTool is false
 
-            }
-        }
+            }//end if click activity
+        }//end new hoe hitbox
         if(Gdx.input.getX() < xWater + BUTTON_WIDTH && Gdx.input.getX() > xWater && BUTTON_Y - Gdx.input.getY() <  BUTTON_HEIGHT * 2 && BUTTON_Y - Gdx.input.getY() > BUTTON_HEIGHT)
         //if(Gdx.input.getX() < Gdx.graphics.getWidth() - BUTTON_WIDTH && Gdx.input.getX() > Gdx.graphics.getWidth() - BUTTON_WIDTH)
         {
             shopDisplay = "Buy some more water.";
             //System.out.println("water");
-            if(Gdx.input.isTouched()){
+            if(Gdx.input.isTouched())
+            {
                 if (game.hasWater == false)
                 {
                     game.hasWater = true;
                     game.balance--;
-                }
-            }
-        }
+                }//end if hasWater is false
+            }//end if click activity
+        }//end new water hitbox
         if(Gdx.input.getX() < xRose + BUTTON_WIDTH && Gdx.input.getX() > xRose && BUTTON_Y - Gdx.input.getY() <  BUTTON_HEIGHT * 2 && BUTTON_Y - Gdx.input.getY() > BUTTON_HEIGHT)
         //if(Gdx.input.getX() < Gdx.graphics.getWidth() - BUTTON_WIDTH && Gdx.input.getX() > Gdx.graphics.getWidth() - BUTTON_WIDTH)
         {
             shopDisplay = "Buy a rose seed.";
             //System.out.println("rose");
-            if(Gdx.input.isTouched()){
+            if(Gdx.input.isTouched())
+            {
                 if (game.hasSeed == false)
                 {
                     game.hasSeed = true;
                     game.seedType = "rose";
                     game.balance--;
-                }
-            }
-        }
+                }//end if hasSeed is false
+            }//end if click activity
+        }//end new Rose hitbox
         if(Gdx.input.getX() < xDaisy + BUTTON_WIDTH && Gdx.input.getX() > xDaisy && BUTTON_Y - Gdx.input.getY() <  BUTTON_HEIGHT * 2 && BUTTON_Y - Gdx.input.getY() > BUTTON_HEIGHT)
         //if(Gdx.input.getX() < Gdx.graphics.getWidth() - BUTTON_WIDTH && Gdx.input.getX() > Gdx.graphics.getWidth() - BUTTON_WIDTH)
         {
             shopDisplay = "Buy a daisy seed.";
             //System.out.println("daisy");
-            if(Gdx.input.isTouched()){
+            if(Gdx.input.isTouched())
+            {
                 if (game.hasSeed == false)
                 {
                     game.hasSeed = true;
                     game.seedType = "daisy";
                     game.balance--;
-                }
-            }
-        }
+                }//end if hasSeed is false
+            }//end if click activity
+        }//end new Daisy hitbox
         if(Gdx.input.getX() < xTulip + BUTTON_WIDTH && Gdx.input.getX() > xTulip && BUTTON_Y - Gdx.input.getY() <  BUTTON_HEIGHT * 2 && BUTTON_Y - Gdx.input.getY() > BUTTON_HEIGHT)
         //if(Gdx.input.getX() < Gdx.graphics.getWidth() - BUTTON_WIDTH && Gdx.input.getX() > Gdx.graphics.getWidth() - BUTTON_WIDTH)
         {
             shopDisplay = "Buy a tulip seed.";
             //System.out.println("tulip");
-            if(Gdx.input.isTouched()){
+            if(Gdx.input.isTouched())
+            {
                 if (game.hasSeed == false)
                 {
                     game.hasSeed = true;
                     game.seedType = "tulip";
                     game.balance--;
-                }
-            }
-        }
+                }//end if hasSeed is false
+            }//end if clickActivity
+        }//end new tulip hitbox
         game.batch.end();
-    }
+    }//end new tulip hitbox
 
     @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
+    public void resize(int width, int height)
+    {
+    //nothing to resize
+    }//end method resize
 
     @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
+    public void pause()
+    {
+    //nothing to pause
+    }//end method pause
 
     @Override
-    public void dispose() {
+    public void resume()
+    {
+    //nothing to resume
+    }//end method resume
 
-    }
+    @Override
+    public void hide()
+    {
+    //nothing to hide
+    }//end method hide
 
-}
+    @Override
+    public void dispose()
+    {
+    //nothing to dispose
+    }//end method dispose
+}//end class ShopScreen
