@@ -1,0 +1,18 @@
+Who's Joe is a game about a man who wants to find happiness in planting flowers. It is a 2D RPG/Tycoon game that
+runs on the libGDX game engine.
+
+How to Play:
+LEFT,RIGHT,UP,DOWN keys are used to move.
+SPACE to plant a new flower
+X to open the shop
+C to close the shop
+Click on a flower to water it. It takes 5 seconds for it to grow
+Planting a flower uses up 1 hoe and 1 seed
+Watering a flower uses up 1 water
+Buy more water,hoe and seed in the store. Each cost 1 balance
+Achieve maximum happiness by planting flowers
+Happiness of -10 will lead to a game over
+
+Known Bugs:
+Some areas you can't plant on even though its within the borders of the game.
+Some hitboxes don't trigger on click
